@@ -51,7 +51,7 @@
     NSInteger hoursBetweenDates = timeBetweenDates / secondsInHour;
     
     double secondsInMinute = 60;
-    NSInteger minutesBetweenDates = (timeBetweenDates - (hoursBetweenDates * secondsInHour) / secondsInMinute);
+    NSInteger minutesBetweenDates = (timeBetweenDates - (hoursBetweenDates * secondsInHour)) / secondsInMinute;
     
     hours += hoursBetweenDates;
     minutes += minutesBetweenDates;
