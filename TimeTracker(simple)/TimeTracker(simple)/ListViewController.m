@@ -42,12 +42,42 @@
     
     Entry *entry = [EntryController sharedInstance].entries[indexPath.row];
     
+    NSInteger hours = 0;
+    NSInteger minutes = 0;
+    
+    NSTimeInterval timeBetweenDates = [entry.endTime timeIntervalSinceDate:entry.startTime];
+    
+    double secondsInHour = 3600;
+    NSInteger hoursBetweenDates = timeBetweenDates / secondsInHour;
+    
+    double secondsInMinute = 60;
+    NSInteger minutesBetweenDates = (timeBetweenDates - (hoursBetweenDates * secondsInHour) / secondsInMinute);
+    
+    hours += hoursBetweenDates;
+    minutes += minutesBetweenDates;
+    
+    NSString *hourString = [NSString stringWithFormat:@"%ld", (long)hours];
+    NSString *minuteString = [NSString stringWithFormat:@"%ld", (long)minutes];
+    
     cell.textLabel.text = entry.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", entry.startTime, entry.endTime];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", hourString, minuteString];
     
     return cell;
     
     
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        [[EntryController sharedInstance]removeEntry:[EntryController sharedInstance].entries[indexPath.row]];
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+        
+        [tableView reloadData];
+        
+    }
 }
 
 
