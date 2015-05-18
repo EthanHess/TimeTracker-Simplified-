@@ -59,8 +59,15 @@
     NSString *hourString = [NSString stringWithFormat:@"%ld", (long)hours];
     NSString *minuteString = [NSString stringWithFormat:@"%ld", (long)minutes];
     
+    self.tableView.backgroundColor = [UIColor blueColor];
+    
     cell.textLabel.text = entry.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", hourString, minuteString];
+    cell.textLabel.font = [UIFont fontWithName:@"Chalkduster" size:16];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor blueColor];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ hours %@ minutes", hourString, minuteString];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Chalkduster" size:12];
     
     return cell;
     
